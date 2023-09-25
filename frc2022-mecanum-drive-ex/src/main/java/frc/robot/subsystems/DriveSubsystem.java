@@ -35,17 +35,36 @@ public class DriveSubsystem extends SubsystemBase {
    {
     // Use the joystick X axis for lateral movement, Y axis for forward
     // movement, and Z axis for rotation.
-        // mRobotDrive.driveCartesian(ySpeed, xSpeed, zRot, 0.0);
+        double mXSpeed = xSpeed.getAsDouble();
+        double mYSpeed = ySpeed.getAsDouble();
 
-        mFrontLeftTalon.set(m_driveControlMode, 0);
-        mFrontRightTalon.set(m_driveControlMode, 0);
-        mRearLeftTalon.set(m_driveControlMode, 0);
-        mRearRightTalon.set(m_driveControlMode,0);
+        double[][] talonSpeeds = new double[1][1];
+
+        //foreward motion
+        for(int i = 0; i < talonSpeeds.length; i++){
+          for(int j = 0; j < talonSpeeds[i].length; j++){
+            talonSpeeds[i][j] += mYSpeed;
+          }
+        }
+
+        //sideways motion
+        for(int i = 0; i < talonSpeeds[0].length; i++){
+          talonSpeeds[0][i] += mXSpeed;
+        }
+        for(int i = 0; i < talonSpeeds[1].length; i++){
+          talonSpeeds[1][i] -= mXSpeed;
+        }
+        
+        //set the speeds
+        mFrontLeftTalon.set(m_driveControlMode, talonSpeeds[0][0]);
+        mFrontRightTalon.set(m_driveControlMode, talonSpeeds[0][1]);
+        mRearLeftTalon.set(m_driveControlMode, talonSpeeds[1][0]);
+        mRearRightTalon.set(m_driveControlMode, talonSpeeds[1][1]);
     }
 
 
     
-      public void setMotorCoeff(
+    public void setMotorCoeff(
         double frontLeftCoeff,
         double rearLeftCoeff,
         double frontRightCoeff,
