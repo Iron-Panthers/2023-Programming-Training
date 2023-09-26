@@ -20,7 +20,8 @@ public class DriveSubsystem extends SubsystemBase {
     private double m_rearLeftCoeff = 1;
     private double m_frontRightCoeff = 1;
     private double m_rearRightCoeff = 1;
-
+    private int multiTH = 1; // wheels = t(left Front)   y(Right Front)
+    private int multiYG = 1; //          g(left back)    h(Right back)
 
     private ControlMode m_driveControlMode = ControlMode.PercentOutput;
 
@@ -37,11 +38,33 @@ public class DriveSubsystem extends SubsystemBase {
     // movement, and Z axis for rotation.
         // mRobotDrive.driveCartesian(ySpeed, xSpeed, zRot, 0.0);
         
-        double ySpeed1 = ySpeed.getAsDouble();
-        mFrontLeftTalon.set(m_driveControlMode, ySpeed1);
-        mFrontRightTalon.set(m_driveControlMode, ySpeed1);
-        mRearLeftTalon.set(m_driveControlMode, ySpeed1);
-        mRearRightTalon.set(m_driveControlMode,ySpeed1);
+        double y = ySpeed.getAsDouble();
+        double x = xSpeed.getAsDouble();
+        if (x>y)
+        {
+          multiTH = 1;
+        }
+        else
+        {
+          multiTH = -1;
+        }
+        if (y>(x*-1))
+        {
+          multiYG = 1;
+        }
+        else
+        {
+          multiYG = -1;
+        }
+        double speed1 = Math.abs((Math.sqrt((x*x)+(y*y)))/Math.sqrt(2)); // finding distance of joystick to center
+        double speed2 = math.abs(0.5*(y + x)); // finding solution to split line equation x=y and joystick locaiton equation, y=-x+xSpeed+ySpeed
+        double speed = ((speed1*speed2));
+
+
+        mFrontLeftTalon.set(m_driveControlMode, speed*multiTH);
+        mFrontRightTalon.set(m_driveControlMode,speed*multiYG);
+        mRearLeftTalon.set(m_driveControlMode, speed*multiTH);
+        mRearRightTalon.set(m_driveControlMode,speed*multiYG);
     }
 
 
