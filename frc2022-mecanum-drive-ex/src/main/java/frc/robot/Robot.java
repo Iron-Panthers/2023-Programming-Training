@@ -95,7 +95,7 @@ public class Robot extends TimedRobot {
     // adjust for 117rpm in front and 312rpm in back
     mRobotDrive.setMotorCoeff(1, 0.375, 1, 0.375);
     // enable velocity control - max scale in ticks/100ms
-    mRobotDrive.setControlMode(ControlMode.Velocity, 260);
+    mRobotDrive.setControlMode(ControlMode.PercentOutput, 260);
 
 
     // IMPORTANT! Create your default command in order to drive
