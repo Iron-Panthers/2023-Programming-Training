@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -21,15 +22,15 @@ public class DriveSubsystem extends SubsystemBase {
     private double m_frontRightCoeff = 1;
     private double m_rearRightCoeff = 1;
 
-
     private ControlMode m_driveControlMode = ControlMode.PercentOutput;
 
     public DriveSubsystem( TalonSRX mFrontLeftTalon, TalonSRX mRearLeftTalon, TalonSRX mFrontRightTalon, TalonSRX mRearRightTalon) {
-        this.mFrontLeftTalon = mFrontLeftTalon;
-        this.mRearLeftTalon = mRearLeftTalon;
-        this.mFrontRightTalon = mFrontRightTalon;
-        this.mRearRightTalon = mRearRightTalon;
-    }
+      this.mFrontLeftTalon = mFrontLeftTalon;
+      this.mRearLeftTalon = mRearLeftTalon;
+      this.mFrontRightTalon = mFrontRightTalon;
+      this.mRearRightTalon = mRearRightTalon;
+
+      }
 
    public void drive(DoubleSupplier ySpeed, DoubleSupplier xSpeed)
    {
@@ -37,26 +38,38 @@ public class DriveSubsystem extends SubsystemBase {
     // movement, and Z axis for rotation.
         // mRobotDrive.driveCartesian(ySpeed, xSpeed, zRot, 0.0);
         ySpeed.getAsDouble();
-        double left = ySpeed.getAsDouble();
-        double right = 0;
+        double fr = ySpeed.getAsDouble();
+        double rf = 0;
         double x = xSpeed.getAsDouble();
         double y = ySpeed.getAsDouble();
         if(x != 0){
-          if(y < 0){
-            right = Math.abs (xSpeed.getAsDouble()) * -1;
-          }else if(y > 0){
-            right = Math.abs (xSpeed.getAsDouble());
+          if(y > 0 && x < 0){
+            rf = xSpeed.getAsDouble();
+            //2
+          }else if(y < 0 && x > 0){
+            rf = xSpeed.getAsDouble();
+            //4
+          }else if(y > 0 && x > 0){
+            rf = ySpeed.getAsDouble();
+            fr = xSpeed.getAsDouble() * -1;
+            //1
+          }else if(y < 0 && x < 0){
+            rf = ySpeed.getAsDouble();
+            fr = xSpeed.getAsDouble() * -1;
+            //3
+          }else if(y == 0){
+            rf = xSpeed.getAsDouble();
+            fr = xSpeed.getAsDouble() * -1;
           }else{
-            right = xSpeed.getAsDouble();
-            left = xSpeed.getAsDouble() * -1;
+            //nothing
           }
-        }
+        }          
         
 
-        mFrontLeftTalon.set(m_driveControlMode, left);
-        mFrontRightTalon.set(m_driveControlMode, right);
-        mRearLeftTalon.set(m_driveControlMode, left);
-        mRearRightTalon.set(m_driveControlMode, right);
+        mFrontLeftTalon.set(m_driveControlMode, fr);
+        mFrontRightTalon.set(m_driveControlMode, rf);
+        mRearLeftTalon.set(m_driveControlMode, fr);
+        mRearRightTalon.set(m_driveControlMode, rf);
     }
 
 
