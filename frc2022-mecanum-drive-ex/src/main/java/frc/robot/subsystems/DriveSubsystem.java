@@ -37,28 +37,29 @@ public class DriveSubsystem extends SubsystemBase {
     // Use the joystick X axis for lateral movement, Y axis for forward
     // movement, and Z axis for rotation.
         // mRobotDrive.driveCartesian(ySpeed, xSpeed, zRot, 0.0);
-        
+        // Wheels represented by T Y
+        //                       G H
         double y = ySpeed.getAsDouble();
         double x = xSpeed.getAsDouble();
         if (x>y)
         {
-          multiTH = 1;
+          multiTH = -1;
         }
         else
         {
-          multiTH = -1;
+          multiTH = 1;
         }
         if (y>(x*-1))
         {
-          multiYG = 1;
+          multiYG = -1;
         }
         else
         {
-          multiYG = -1;
+          multiYG = 1;
         }
-        double speed1 = Math.abs((Math.sqrt((x*x)+(y*y)))); // finding distance of joystick to center
-        double speed2 = Math.abs(0.5*(y + x)); // finding solution to split line equation x=y and joystick locaiton equation, y=-x+xSpeed+ySpeed
-        double speed = ((speed1*speed2));
+        double speed1 = Math.abs((Math.sqrt((x*x)+(y*y)))); // 1 finding distance of joystick to center 
+        double speed2 = Math.abs(0.5*(y + x)); // 0.5finding solution to split line equation x=y and joystick locaiton equation, y=-x+xSpeed+ySpeed
+        double speed = ((speed1*speed2)); // 0.5
 
 
         mFrontLeftTalon.set(m_driveControlMode, speed*multiTH);
