@@ -37,13 +37,26 @@ public class DriveSubsystem extends SubsystemBase {
     // movement, and Z axis for rotation.
         // mRobotDrive.driveCartesian(ySpeed, xSpeed, zRot, 0.0);
         ySpeed.getAsDouble();
-        double power1 = ySpeed.getAsDouble();
+        double left = ySpeed.getAsDouble();
+        double right = 0;
+        double x = xSpeed.getAsDouble();
+        double y = ySpeed.getAsDouble();
+        if(x != 0){
+          if(y < 0){
+            right = Math.abs (xSpeed.getAsDouble()) * -1;
+          }else if(y > 0){
+            right = Math.abs (xSpeed.getAsDouble());
+          }else{
+            right = xSpeed.getAsDouble();
+            left = xSpeed.getAsDouble() * -1;
+          }
+        }
         
 
-        mFrontLeftTalon.set(m_driveControlMode, power1);
-        mFrontRightTalon.set(m_driveControlMode, power1);
-        mRearLeftTalon.set(m_driveControlMode, power1);
-        mRearRightTalon.set(m_driveControlMode,power1);
+        mFrontLeftTalon.set(m_driveControlMode, left);
+        mFrontRightTalon.set(m_driveControlMode, right);
+        mRearLeftTalon.set(m_driveControlMode, left);
+        mRearRightTalon.set(m_driveControlMode, right);
     }
 
 
