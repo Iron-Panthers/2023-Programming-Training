@@ -40,6 +40,13 @@ public class DriveSubsystem extends SubsystemBase {
 
         double[][] talonSpeeds = new double[2][2];
 
+        //reset speeds
+        for(int i = 0; i < talonSpeeds.length; i++){
+          for(int j = 0; j < talonSpeeds[i].length; j++){
+            talonSpeeds[i][j] = 0d;
+          }
+        }
+
         //foreward motion
         for(int i = 0; i < talonSpeeds.length; i++){
           for(int j = 0; j < talonSpeeds[i].length; j++){
@@ -50,7 +57,7 @@ public class DriveSubsystem extends SubsystemBase {
         //sideways motion
         for(int i = 0; i < talonSpeeds.length; i++){
           for(int j = 0; j < talonSpeeds[i].length; j++){
-            talonSpeeds[i][j] += (i == j)?1:-1 * mXSpeed;
+            talonSpeeds[i][j] += (((i == j)?1:-1) * mXSpeed);
           }
         }
         
