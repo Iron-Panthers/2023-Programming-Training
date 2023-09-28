@@ -38,7 +38,7 @@ public class DriveSubsystem extends SubsystemBase {
     // movement, and Z axis for rotation.
         // mRobotDrive.driveCartesian(ySpeed, xSpeed, zRot, 0.0);
         ySpeed.getAsDouble();
-        double fr = ySpeed.getAsDouble();
+        double fr = 0;
         double rf = 0;
         double x = xSpeed.getAsDouble();
         double y = ySpeed.getAsDouble();
@@ -50,16 +50,19 @@ public class DriveSubsystem extends SubsystemBase {
             rf = xSpeed.getAsDouble();
             //4
           }else if(y > 0 && x > 0){
-            rf = ySpeed.getAsDouble();
-            fr = xSpeed.getAsDouble() * -1;
+            fr = xSpeed.getAsDouble();
             //1
           }else if(y < 0 && x < 0){
-            rf = ySpeed.getAsDouble();
-            fr = xSpeed.getAsDouble() * -1;
+            fr = xSpeed.getAsDouble();
             //3
           }else if(y == 0){
+            rf = xSpeed.getAsDouble() * -1;
+            fr = xSpeed.getAsDouble();
+            //on the x axis
+          }else if(x == 0){
             rf = xSpeed.getAsDouble();
-            fr = xSpeed.getAsDouble() * -1;
+            fr = ySpeed.getAsDouble();
+            //on the y axis
           }else{
             //nothing
           }
