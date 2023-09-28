@@ -48,11 +48,10 @@ public class DriveSubsystem extends SubsystemBase {
         }
 
         //sideways motion
-        for(int i = 0; i < talonSpeeds[0].length; i++){
-          talonSpeeds[0][i] += mXSpeed;
-        }
-        for(int i = 0; i < talonSpeeds[1].length; i++){
-          talonSpeeds[1][i] -= mXSpeed;
+        for(int i = 0; i < talonSpeeds.length; i++){
+          for(int j = 0; j < talonSpeeds[i].length; j++){
+            talonSpeeds[i][j] += (i == j)?1:-1 * mXSpeed;
+          }
         }
         
         //set the speeds
