@@ -36,7 +36,7 @@ public class DriveSubsystem extends SubsystemBase {
     // Use the joystick X axis for lateral movement, Y axis for forward
     // movement, and Z axis for rotation.
         double mXSpeed = xSpeed.getAsDouble();
-        double mYSpeed = ySpeed.getAsDouble();
+        double mYSpeed = -ySpeed.getAsDouble();
 
         double[][] talonSpeeds = new double[2][2];
 
