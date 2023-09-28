@@ -41,7 +41,7 @@ public class DriveSubsystem extends SubsystemBase {
         //                       G H
         double y = ySpeed.getAsDouble();
         double x = xSpeed.getAsDouble();
-        if (x>y)
+        if (y>x)
         {
           multiTH = 1;
         }
@@ -49,7 +49,7 @@ public class DriveSubsystem extends SubsystemBase {
         {
           multiTH = -1;
         }
-        if (y>(x*-1))
+        if (x>(y*-1))
         {
           multiYG = 1;
         }
@@ -58,7 +58,7 @@ public class DriveSubsystem extends SubsystemBase {
           multiYG = -1;
         }
         double speed1 = Math.abs((Math.sqrt((x*x)+(y*y)))); // 1 finding distance of joystick to center 
-        double speed2 = Math.abs(0.5*(y + x)); // 0.5finding solution to split line equation x=y and joystick locaiton equation, y=-x+xSpeed+ySpeed
+        double speed2 = 1-(Math.abs(0.5*(y + x))); // 0.5finding solution to split line equation x=y and joystick locaiton equation, y=-x+xSpeed+ySpeed
         double speed = ((speed1*speed2)); // 0.5
 
 
