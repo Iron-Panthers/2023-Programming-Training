@@ -38,7 +38,7 @@ public class DriveSubsystem extends SubsystemBase {
         double mXSpeed = xSpeed.getAsDouble();
         double mYSpeed = ySpeed.getAsDouble();
 
-        double[][] talonSpeeds = new double[1][1];
+        double[][] talonSpeeds = new double[2][2];
 
         //foreward motion
         for(int i = 0; i < talonSpeeds.length; i++){
