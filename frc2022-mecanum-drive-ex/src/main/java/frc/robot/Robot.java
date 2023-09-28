@@ -27,7 +27,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard; 
 import frc.robot.subsystems.DriveSubsystem;
-
+import frc.robot.commands.DefaultDrive;
 /** This is a demo program showing how to use Mecanum control with the MecanumDrive class. */
 public class Robot extends TimedRobot {
   /* CAN IDs; RIO is in the front left of bot */
@@ -95,11 +95,11 @@ public class Robot extends TimedRobot {
     // adjust for 117rpm in front and 312rpm in back
     mRobotDrive.setMotorCoeff(1, 0.375, 1, 0.375);
     // enable velocity control - max scale in ticks/100ms
-    mRobotDrive.setControlMode(ControlMode.Velocity, 260);
+    mRobotDrive.setControlMode(ControlMode.PercentOutput, 260);
 
 
     // IMPORTANT! Create your default command in order to drive
-    //mRobotDrive.setDefaultCommand(new DefaultDrive());
+    mRobotDrive.setDefaultCommand(new DefaultDrive(xController::getLeftX, xController::getLeftY, mRobotDrive));
      
 
   }
