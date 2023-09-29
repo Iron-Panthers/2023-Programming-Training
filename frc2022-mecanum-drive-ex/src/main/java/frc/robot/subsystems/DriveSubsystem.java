@@ -48,13 +48,13 @@ public class DriveSubsystem extends SubsystemBase {
         if(y>0){
           FrontLeftWheel = y;
           FrontRightWheel = y;
-          RearLeftWheel = y;
-          RearRightWheel = y;
+          RearLeftWheel = y*0.75;
+          RearRightWheel = y*0.75;
           //Foward
         }
         else if (y<0){
-          FrontLeftWheel = y*0.75;
-          FrontRightWheel = y*0.75;
+          FrontLeftWheel = y;
+          FrontRightWheel = y;
           RearLeftWheel = y*0.75;
           RearRightWheel = y*0.75;
           //Backward
