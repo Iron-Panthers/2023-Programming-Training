@@ -58,14 +58,15 @@ public class DriveSubsystem extends SubsystemBase {
           multiYG = -1;
         }
         double speed1 = Math.abs((Math.sqrt((x*x)+(y*y)))); // 1 finding distance of joystick to center 
-        double speed2 = Math.abs(0.5*(y + x)); // 0.5finding solution to split line equation x=y and joystick locaiton equation, y=-x+xSpeed+ySpeed
-        double speed = ((speed1*speed2)); // 0.5
+        double speedTH = Math.abs(0.5*(y-x));
+        double speedYG = 1-(Math.abs(0.5*(y + x))); // 0.5finding solution to split line equation x=y and joystick locaiton equation, y=-x+xSpeed+ySpeed
 
 
-        mFrontLeftTalon.set(m_driveControlMode, speed*multiTH);
-        mFrontRightTalon.set(m_driveControlMode,speed*multiYG);
-        mRearLeftTalon.set(m_driveControlMode, speed*multiYG*0.75);
-        mRearRightTalon.set(m_driveControlMode,speed*multiTH*0.75);
+
+        mFrontLeftTalon.set(m_driveControlMode, speed1*multiTH*speedTH);
+        mFrontRightTalon.set(m_driveControlMode,speed1*multiYG*speedYG);
+        mRearLeftTalon.set(m_driveControlMode, speed1*multiYG*0.75*speedTH);
+        mRearRightTalon.set(m_driveControlMode,speed1*multiTH*0.75*speedYG);
     }
 
 
