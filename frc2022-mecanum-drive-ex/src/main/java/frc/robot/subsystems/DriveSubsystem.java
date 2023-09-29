@@ -64,8 +64,8 @@ public class DriveSubsystem extends SubsystemBase {
 
         mFrontLeftTalon.set(m_driveControlMode, speed*multiTH);
         mFrontRightTalon.set(m_driveControlMode,speed*multiYG);
-        mRearLeftTalon.set(m_driveControlMode, speed*multiYG);
-        mRearRightTalon.set(m_driveControlMode,speed*multiTH);
+        mRearLeftTalon.set(m_driveControlMode, speed*multiYG*0.75);
+        mRearRightTalon.set(m_driveControlMode,speed*multiTH*0.75);
     }
 
 
