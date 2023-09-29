@@ -20,6 +20,10 @@ public class DriveSubsystem extends SubsystemBase {
     private double m_rearLeftCoeff = 1;
     private double m_frontRightCoeff = 1;
     private double m_rearRightCoeff = 1;
+    private double FrontLeftWheel = 1;
+    private double FrontRightWheel = 1;
+    private double BackLeftWheel = 1;
+    private double BackRightWheel = 1;
 
 
     private ControlMode m_driveControlMode = ControlMode.PercentOutput;
@@ -37,18 +41,33 @@ public class DriveSubsystem extends SubsystemBase {
     // movement, and Z axis for rotation.
         // mRobotDrive.driveCartesian(ySpeed, xSpeed, zRot, 0.0);
 
-        ySpeed.getAsDouble();
-        xSpeed.getAsDouble();
-
-        mFrontLeftTalon.set(m_driveControlMode, ySpeed.getAsDouble() + xSpeed.getAsDouble());
-        mFrontRightTalon.set(m_driveControlMode, ySpeed.getAsDouble() + xSpeed.getAsDouble());
-        mRearLeftTalon.set(m_driveControlMode, ySpeed.getAsDouble() + xSpeed.getAsDouble());
-        mRearRightTalon.set(m_driveControlMode, ySpeed.getAsDouble() + xSpeed.getAsDouble());
-
-    }
+        double y = ySpeed.getAsDouble();
+        double x = xSpeed.getAsDouble();
 
 
-    
+        if (y>0){
+          FrontLeftWheel = 1;
+          FrontRightWheel = 1;
+          BackLeftWheel  = 1;
+          BackRightWheel = 1;}
+          //go forward
+        else if (y<0){
+          FrontLeftWheel = -1;
+          FrontRightWheel = -1;
+          BackLeftWheel = -1;
+          BackRightWheel = -1;
+          //go backward
+        }
+
+        mFrontLeftTalon.set(m_driveControlMode, FrontLeftWheel);
+        mFrontRightTalon.set(m_driveControlMode, FrontRightWheel);
+        mRearLeftTalon.set(m_driveControlMode, BackLeftWheel);
+        mRearRightTalon.set(m_driveControlMode, BackRightWheel);
+
+
+
+
+  }  
       public void setMotorCoeff(
         double frontLeftCoeff,
         double rearLeftCoeff,
