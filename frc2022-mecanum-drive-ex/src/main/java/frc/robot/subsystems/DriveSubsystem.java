@@ -1,4 +1,5 @@
 package frc.robot.subsystems;
+import java.time.Year;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -45,7 +46,7 @@ public class DriveSubsystem extends SubsystemBase {
         double x = xSpeed.getAsDouble();
 
 
-        if (y>0 || y<0){
+        if (y>x || y<x){
           FrontLeftWheel = y;
           FrontRightWheel = y;
           BackLeftWheel  = 0.75*y;
@@ -53,14 +54,14 @@ public class DriveSubsystem extends SubsystemBase {
         }
           //go forward or backward
       
-        if (x>0){//go right
+        if (x>y){//go right
           FrontLeftWheel = x;
           FrontRightWheel =-x;
           BackLeftWheel = -x;
           BackRightWheel = x;
           
         }
-        if (x<0){//go left
+        if (x<y){//go left
           FrontLeftWheel = -x;
           FrontRightWheel = x;
           BackLeftWheel = x;
