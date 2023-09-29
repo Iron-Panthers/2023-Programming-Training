@@ -31,11 +31,13 @@ public class DefaultDrive extends CommandBase {
     @Override
     public void execute() {
 
+
         // get values from suppliers
-        // double y = ySupplier.getAsDouble();
-        // double x = xSupplier.getAsDouble();
+         double y = ySupplier.getAsDouble();
+        double x = xSupplier.getAsDouble();
 
         // Use your drive method
+        mDrive.drive(y, x);
         
        
     }
