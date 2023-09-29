@@ -46,36 +46,39 @@ public class DriveSubsystem extends SubsystemBase {
             fr = 1;
             //1
             if(y != .5){
-              rf = xSpeed.getAsDouble;
+              rf = xSpeed.getAsDouble();
             }
           }else if(y > 0 && x < 0){
             rf = 1;
             //2
             if(y != .5){
-              fr = xSpeed.getAsDouble;
+              fr = xSpeed.getAsDouble();
           } else if(y < 0 && x < 0){
             fr = 1;
             //3
             if(y != -.5){
-              rf = xSpeed.getAsDouble;
+              rf = xSpeed.getAsDouble();
             }
           }else if(y < 0 && x > 0){
             rf = 1;
             //4
             if(y != -.5){
-              fr = xSpeed.getAsDouble;
+              fr = xSpeed.getAsDouble();
+          }else if(y == 0 && x == 0){
+            rf = 0;
+            fr = 0;
           }
         }          
         
 
         mFrontLeftTalon.set(m_driveControlMode, fr);
         mFrontRightTalon.set(m_driveControlMode, rf);
-        mRearLeftTalon.set(m_driveControlMode, fr * .75);
-        mRearRightTalon.set(m_driveControlMode, rf * .75);
+        mRearLeftTalon.set(m_driveControlMode, rf * .75);
+        mRearRightTalon.set(m_driveControlMode, fr * .75);
     }
 
 
-    
+  } 
       public void setMotorCoeff(
         double frontLeftCoeff,
         double rearLeftCoeff,
