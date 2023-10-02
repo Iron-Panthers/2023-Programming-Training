@@ -45,32 +45,20 @@ public class DriveSubsystem extends SubsystemBase {
         double y = ySpeed.getAsDouble();
         double x = xSpeed.getAsDouble();
 
-        if(y>0){
+        if(Math.abs(y)>Math.abs(x)){
           FrontLeftWheel = y;
           FrontRightWheel = y;
-          RearLeftWheel = y*0.75;
-          RearRightWheel = y*0.75;
-          //Foward
-        }
-        else if (y<0){
-          FrontLeftWheel = y;
-          FrontRightWheel = y;
-          RearLeftWheel = y*0.75;
-          RearRightWheel = y*0.75;
-          //Backward
-        }
+          RearLeftWheel = y*0.5;
+          RearRightWheel = y*0.5;
+          //Foward & Backward
 
-        if (x>0){
+        }
+        else if (Math.abs(x)>Math.abs(y)){
           FrontLeftWheel = -x;
           FrontRightWheel = x;
           RearLeftWheel = x*0.75;
           RearRightWheel = -x*0.75;
-        }
-        else if (x<0){
-          FrontLeftWheel = x;
-          FrontRightWheel = -x;
-          RearLeftWheel = x*0.75;
-          RearRightWheel = -x*0.75;
+          //Right
         }
         mFrontLeftTalon.set(m_driveControlMode, FrontLeftWheel);
         mFrontRightTalon.set(m_driveControlMode, FrontRightWheel);
