@@ -37,10 +37,44 @@ public class DriveSubsystem extends SubsystemBase {
     // movement, and Z axis for rotation.
         // mRobotDrive.driveCartesian(ySpeed, xSpeed, zRot, 0.0);
 
-        mFrontLeftTalon.set(m_driveControlMode, 0);
-        mFrontRightTalon.set(m_driveControlMode, 0);
-        mRearLeftTalon.set(m_driveControlMode, 0);
-        mRearRightTalon.set(m_driveControlMode,0);
+        public void drive(DoubleSupplier ySpeed, DoubleSupplier xSpeed)
+   {
+    // Use the joystick X axis for lateral movement, Y axis for forward
+    // movement, and Z axis for rotation.
+        // mRobotDrive.driveCartesian(ySpeed, xSpeed, zRot, 0.0);
+        if (ySpeed >=0.5 || ySpeed >= -0.5){
+          mFrontLeftTalon.set(m_driveControlMode, ySpeed);
+          mFrontRightTalon.set(m_driveControlMode, ySpeed);
+          mRearLeftTalon.set(m_driveControlMode, ySpeed);
+          mRearRightTalon.set(m_driveControlMode, ySpeed);
+        }
+       
+         if (xSpeed >= 0.5){
+          mFrontLeftTalon.set(m_driveControlMode, xSpeed);
+          mFrontRightTalon.set(m_driveControlMode, -xSpeed);
+          mRearLeftTalon.set(m_driveControlMode, -xSpeed);
+          mRearRightTalon.set(m_driveControlMode, xSpeed);
+         } else if (xSpeed >= -0.5){
+          mFrontLeftTalon.set(m_driveControlMode, -xSpeed);
+          mFrontRightTalon.set(m_driveControlMode, xSpeed);
+          mRearLeftTalon.set(m_driveControlMode, xSpeed);
+          mRearRightTalon.set(m_driveControlMode, -xSpeed);
+         }
+         if (xSpeed == 0 || ySpeed==0){
+          mFrontLeftTalon.set(m_driveControlMode, 0);
+          mFrontRightTalon.set(m_driveControlMode, 0);
+          mRearLeftTalon.set(m_driveControlMode, 0);
+          mRearRightTalon.set(m_driveControlMode, 0);
+         }
+         }
+         
+        
+        /*
+         if rotate right, set all talons to 1, rotate left, set all talons to -1
+         */
+        
+        
+    }
     }
 
 
