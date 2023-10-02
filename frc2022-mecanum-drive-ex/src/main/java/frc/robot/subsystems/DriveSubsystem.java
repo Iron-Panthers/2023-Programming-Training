@@ -43,19 +43,19 @@ public class DriveSubsystem extends SubsystemBase {
         double x = xSpeed.getAsDouble();
         if (y>x)
         {
-          multiTH = 1;
+          multiTH = -1;
         }
         else
         {
-          multiTH = -1;
+          multiTH = 1;
         }
         if (x>(y*-1))
         {
-          multiYG = 1;
+          multiYG = -1;
         }
         else
         {
-          multiYG = -1;
+          multiYG = 1;
         }
         double speed1 = Math.abs((Math.sqrt((x*x)+(y*y)))); // 1 finding distance of joystick to center 
         double speedTH = 1-(Math.abs(0.5*(y+x)));
