@@ -31,14 +31,14 @@ public class DriveSubsystem extends SubsystemBase {
         this.mRearRightTalon = mRearRightTalon;
     }
 
-   public void drive(DoubleSupplier ySpeed, DoubleSupplier xSpeed)
-   {
-    // Use the joystick X axis for lateral movement, Y axis for forward
-    // movement, and Z axis for rotation.
-        // mRobotDrive.driveCartesian(ySpeed, xSpeed, zRot, 0.0);
 
-        public void drive(DoubleSupplier ySpeed, DoubleSupplier xSpeed)
+   public void drive(DoubleSupplier ySpeedSupplier, DoubleSupplier xSpeedSupplier)
    {
+
+    double ySpeed = ySpeedSupplier.getAsDouble();
+    double xSpeed = xSpeedSupplier.getAsDouble();
+
+
     // Use the joystick X axis for lateral movement, Y axis for forward
     // movement, and Z axis for rotation.
         // mRobotDrive.driveCartesian(ySpeed, xSpeed, zRot, 0.0);
@@ -66,16 +66,14 @@ public class DriveSubsystem extends SubsystemBase {
           mRearLeftTalon.set(m_driveControlMode, 0);
           mRearRightTalon.set(m_driveControlMode, 0);
          }
-         }
+    }
          
         
         /*
          if rotate right, set all talons to 1, rotate left, set all talons to -1
          */
         
-        
-    }
-    }
+   
 
 
     
