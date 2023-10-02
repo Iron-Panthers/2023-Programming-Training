@@ -24,6 +24,8 @@ public class DriveSubsystem extends SubsystemBase {
     private double RearLeftWheel = 1;
     private double FrontRightWheel = 1;
     private double RearRightWheel = 1;
+    
+  
 
 
     private ControlMode m_driveControlMode = ControlMode.PercentOutput;
@@ -44,26 +46,24 @@ public class DriveSubsystem extends SubsystemBase {
 
         double y = ySpeed.getAsDouble();
         double x = xSpeed.getAsDouble();
-
-        if(Math.abs(y)>Math.abs(x)){
-          FrontLeftWheel = y;
-          FrontRightWheel = y;
-          RearLeftWheel = y*0.5;
-          RearRightWheel = y*0.5;
-          //Foward & Backward
-
-        }
-        else if (Math.abs(x)>Math.abs(y)){
-          FrontLeftWheel = -x;
-          FrontRightWheel = x;
-          RearLeftWheel = x*0.75;
-          RearRightWheel = -x*0.75;
-          //Right
-        }
         mFrontLeftTalon.set(m_driveControlMode, FrontLeftWheel);
         mFrontRightTalon.set(m_driveControlMode, FrontRightWheel);
         mRearLeftTalon.set(m_driveControlMode, RearLeftWheel);
         mRearRightTalon.set(m_driveControlMode, RearRightWheel);
+        if(Math.abs(y)>Math.abs(x)){
+          FrontLeftWheel = y;
+          FrontRightWheel = y;
+          RearLeftWheel = y*0.65;
+          RearRightWheel = y*0.65;
+          //Foward & Backward
+        }
+        else if (Math.abs(x)>Math.abs(y)){
+          FrontLeftWheel = -x;
+          FrontRightWheel = x;
+          RearLeftWheel = x*0.65;
+          RearRightWheel = -x*0.65;
+          //Left
+        }
  
 
     }
