@@ -43,9 +43,9 @@ public class DriveSubsystem extends SubsystemBase {
     // Use the joystick X axis for lateral movement, Y axis for forward
     // movement, and Z axis for rotation.
         // mRobotDrive.driveCartesian(ySpeed, xSpeed, zRot, 0.0);
-
         double y = ySpeed.getAsDouble();
         double x = xSpeed.getAsDouble();
+   
 // //IMININ
 // if (x>y)
 //         {
@@ -74,35 +74,37 @@ public class DriveSubsystem extends SubsystemBase {
 //         mRearRightTalon.set(m_driveControlMode,speed*multiTH);
 //IMIMNINI
         
-        mFrontLeftTalon.set(m_driveControlMode, y + x);
-        mFrontRightTalon.set(m_driveControlMode, y + x);
-        mRearLeftTalon.set(m_driveControlMode, y + x);
-        mRearRightTalon.set(m_driveControlMode, y + x);
+        // mFrontLeftTalon.set(m_driveControlMode, y + x);
+        // mFrontRightTalon.set(m_driveControlMode, y + x);
+        // mRearLeftTalon.set(m_driveControlMode, y + x);
+        // mRearRightTalon.set(m_driveControlMode, y + x);
 
         mFrontLeftTalon.set(m_driveControlMode, FrontLeftWheel);
         mFrontRightTalon.set(m_driveControlMode, FrontRightWheel);
         mRearLeftTalon.set(m_driveControlMode, RearLeftWheel);
         mRearRightTalon.set(m_driveControlMode, RearRightWheel);
         
-    }
-      if (y>0){
-        FrontLeftWheel = 1;
-        FrontRightWheel = 1;
-        RearLeftWheel = 1;
-        RearRightWheel = 1;
-      }else if (y<0){
-        FrontLeftWheel = -1;
-        FrontRightWheel = -1;
-        RearLeftWheel = -1;
-        RearRightWheel = -1;
+    
+      if (Math.abs(y)>Math.abs(x)){ //forward or backward
+        FrontLeftWheel = y;
+        FrontRightWheel = y;
+        RearLeftWheel = y*0.6;
+        RearRightWheel = y*0.6;
+      }else if (Math.abs(x)>Math.abs(y)){ //right
+        FrontLeftWheel = x;
+        FrontRightWheel = -x;
+        RearLeftWheel = -x*0.6;
+        RearRightWheel = x*0.6;
       }
-  
+    }
+
+    
       public void setMotorCoeff(
         double frontLeftCoeff,
         double rearLeftCoeff,
         double frontRightCoeff,
-        double rearRightCoeff,) {
-      
+        double rearRightCoeff) {
+        
       m_frontLeftCoeff = frontLeftCoeff;
       m_rearLeftCoeff = rearLeftCoeff;
       m_frontRightCoeff = frontRightCoeff;
