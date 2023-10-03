@@ -37,12 +37,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     double ySpeed = ySpeedSupplier.getAsDouble();
     double xSpeed = xSpeedSupplier.getAsDouble();
-
-
-    // Use the joystick X axis for lateral movement, Y axis for forward
-    // movement, and Z axis for rotation.
-        // mRobotDrive.driveCartesian(ySpeed, xSpeed, zRot, 0.0);
-        if (ySpeed >=0.5 || ySpeed >= -0.5){
+        if (ySpeed >=0.5 || ySpeed <= -0.5){
           mFrontLeftTalon.set(m_driveControlMode, ySpeed);
           mFrontRightTalon.set(m_driveControlMode, ySpeed);
           mRearLeftTalon.set(m_driveControlMode, ySpeed);
@@ -54,7 +49,7 @@ public class DriveSubsystem extends SubsystemBase {
           mFrontRightTalon.set(m_driveControlMode, -xSpeed);
           mRearLeftTalon.set(m_driveControlMode, -xSpeed);
           mRearRightTalon.set(m_driveControlMode, xSpeed);
-         } else if (xSpeed >= -0.5){
+         } else if (xSpeed <= -0.5){
           mFrontLeftTalon.set(m_driveControlMode, -xSpeed);
           mFrontRightTalon.set(m_driveControlMode, xSpeed);
           mRearLeftTalon.set(m_driveControlMode, xSpeed);
