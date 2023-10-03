@@ -37,19 +37,19 @@ public class DriveSubsystem extends SubsystemBase {
 
     double ySpeed = ySpeedSupplier.getAsDouble();
     double xSpeed = xSpeedSupplier.getAsDouble();
-        if (ySpeed >=0.5 || ySpeed <= -0.5){
+        if (xSpeed >=0.5 || xSpeed <= -0.5){
           mFrontLeftTalon.set(m_driveControlMode, ySpeed);
           mFrontRightTalon.set(m_driveControlMode, ySpeed);
           mRearLeftTalon.set(m_driveControlMode, ySpeed);
           mRearRightTalon.set(m_driveControlMode, ySpeed);
         }
        
-         if (xSpeed >= 0.5){
+         if (ySpeed >= 0.5){
           mFrontLeftTalon.set(m_driveControlMode, xSpeed);
           mFrontRightTalon.set(m_driveControlMode, -xSpeed);
           mRearLeftTalon.set(m_driveControlMode, -xSpeed);
           mRearRightTalon.set(m_driveControlMode, xSpeed);
-         } else if (xSpeed <= -0.5){
+         } else if (ySpeed <= -0.5){
           mFrontLeftTalon.set(m_driveControlMode, -xSpeed);
           mFrontRightTalon.set(m_driveControlMode, xSpeed);
           mRearLeftTalon.set(m_driveControlMode, xSpeed);
