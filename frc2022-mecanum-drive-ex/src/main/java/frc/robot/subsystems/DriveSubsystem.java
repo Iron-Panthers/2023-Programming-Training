@@ -1,14 +1,10 @@
 package frc.robot.subsystems;
-import java.time.Year;
 import java.util.function.DoubleSupplier;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.Drive;
-
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -25,7 +21,8 @@ public class DriveSubsystem extends SubsystemBase {
     private double FrontRightWheel = 1;
     private double BackLeftWheel = 1;
     private double BackRightWheel = 1;
-
+    private double Slopepowersquared = 1;
+    private double Slopepower = 1;
 
     private ControlMode m_driveControlMode = ControlMode.PercentOutput;
 
@@ -45,27 +42,42 @@ public class DriveSubsystem extends SubsystemBase {
         double y = ySpeed.getAsDouble();
         double x = xSpeed.getAsDouble();
 
-
-        if (Math.abs(y)>Math.abs(x)) {
-          FrontLeftWheel = y;
-          FrontRightWheel = y;
-          BackLeftWheel  = 0.6*y;
-          BackRightWheel = 0.6*y;
-        }
-          //go forward or backward
-      
-        else if  (Math.abs(x)>Math.abs(y)){//go right
-          FrontLeftWheel = x;
-          FrontRightWheel =-x;
-          BackLeftWheel = 0.6*-x;
-          BackRightWheel = 0.6*x;
-
         mFrontLeftTalon.set(m_driveControlMode, FrontLeftWheel);
         mFrontRightTalon.set(m_driveControlMode, FrontRightWheel);
         mRearLeftTalon.set(m_driveControlMode, BackLeftWheel);
         mRearRightTalon.set(m_driveControlMode, BackRightWheel);
 
-        }
+        
+        Slopepowersquared = (x*x) + (y*y);
+
+
+
+
+
+        //y-0/x-0=slope=power in what direction??
+
+        // if (Math.abs(y)>Math.abs(x)) {
+        //   FrontLeftWheel = y;
+        //   FrontRightWheel = y;
+        //   BackLeftWheel = 0.65*y;
+        //   BackRightWheel = 0.65*y;
+        // }
+
+        //   //go forward or backward
+      
+        // else if  (Math.abs(x)>Math.abs(y)){//go right
+        //   FrontLeftWheel = x;
+        //   FrontRightWheel =-x;
+        //   BackLeftWheel = 0.65*-x;
+        //   BackRightWheel = 0.65*x;
+
+        // }
+        
+        
+
+
+
+
 
 
 
