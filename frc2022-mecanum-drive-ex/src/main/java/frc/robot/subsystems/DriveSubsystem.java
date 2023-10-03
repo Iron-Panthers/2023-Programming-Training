@@ -24,6 +24,7 @@ public class DriveSubsystem extends SubsystemBase {
     private double RearLeftWheel = 1;
     private double FrontRightWheel = 1;
     private double RearRightWheel = 1;
+    private double slopeInt = 1;
     
   
 
@@ -56,13 +57,21 @@ public class DriveSubsystem extends SubsystemBase {
           RearLeftWheel = y*0.65;
           RearRightWheel = y*0.65;
           //Foward & Backward
+
         }
-        else if (Math.abs(x)>Math.abs(y)){
+       else if (Math.abs(x)>Math.abs(y)){
           FrontLeftWheel = -x;
           FrontRightWheel = x;
           RearLeftWheel = x*0.65;
           RearRightWheel = -x*0.65;
           //Left
+        }
+        else if (Math.abs(x)==Math.abs(y)){
+          slopeInt = (y/x);
+          FrontLeftWheel = slopeInt;
+          FrontRightWheel = slopeInt;
+          RearLeftWheel = slopeInt*0.65;
+          RearRightWheel = slopeInt*0.65;
         }
  
 
