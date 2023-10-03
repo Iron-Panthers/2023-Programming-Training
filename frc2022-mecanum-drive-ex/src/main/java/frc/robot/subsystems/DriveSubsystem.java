@@ -56,7 +56,7 @@ public class DriveSubsystem extends SubsystemBase {
           FrontRightWheel = y;
           RearLeftWheel = y*0.65;
           RearRightWheel = y*0.65;
-          //Foward & Backward
+          //Forward & Backward
 
         }
        else if (Math.abs(x)>Math.abs(y)){
