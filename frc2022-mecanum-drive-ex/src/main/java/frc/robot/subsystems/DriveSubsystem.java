@@ -31,12 +31,13 @@ public class DriveSubsystem extends SubsystemBase {
         this.mRearRightTalon = mRearRightTalon;
     }
 
-   public void drive(DoubleSupplier ySpeed, DoubleSupplier xSpeed)
+   public void drive(DoubleSupplier ySpeed, DoubleSupplier xSpeed, DoubleSupplier zRot)
    {
     // Use the joystick X axis for lateral movement, Y axis for forward
     // movement, and Z axis for rotation.
         double mXSpeed = xSpeed.getAsDouble();
         double mYSpeed = -ySpeed.getAsDouble();
+        double mZRot = zRot.getAsDouble();
 
         double[][] talonSpeeds = new double[2][2];
 
@@ -58,6 +59,13 @@ public class DriveSubsystem extends SubsystemBase {
         for(int i = 0; i < talonSpeeds.length; i++){
           for(int j = 0; j < talonSpeeds[i].length; j++){
             talonSpeeds[i][j] += (((i == j)?1:-1) * mXSpeed);
+          }
+        }
+
+        //rotation
+        for(int i = 0; i < talonSpeeds.length; i++){
+          for(int j = 0; j < talonSpeeds[i].length; j++){
+            talonSpeeds[i][j] += (((j == 0)?1:-1) * mZRot);
           }
         }
         
