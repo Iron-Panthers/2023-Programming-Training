@@ -42,43 +42,55 @@ public class DriveSubsystem extends SubsystemBase {
         double rf = 0;
         double x = xSpeed.getAsDouble();
         double y = ySpeed.getAsDouble();
-          if(y > 0 && x > 0){
-            fr = 1;
-            //1
-            if(y != .5){
-              rf = xSpeed.getAsDouble();
-            }
-          }else if(y > 0 && x < 0){
-            rf = 1;
-            //2
-            if(y != .5){
-              fr = xSpeed.getAsDouble();
-          } else if(y < 0 && x < 0){
-            fr = 1;
-            //3
-            if(y != -.5){
-              rf = xSpeed.getAsDouble();
-            }
-          }else if(y < 0 && x > 0){
-            rf = 1;
-            //4
-            if(y != -.5){
-              fr = xSpeed.getAsDouble();
-          }else if(y == 0 && x == 0){
+        fr = x;
+        rf = fr * -1;
+        
+        if(y >= 0 && x >= 0){
+          //1
+          rf += y;
+        }
+        if(y >= 0 && x <= 0){
+          //2
+          fr += y;
+        }
+        if(y <= 0 && x <= 0){
+          //3
+          rf += y * -1;
+        }
+        if(y <= 0 && x >= 0){
+          //4
+          fr += y * -1;
+        }
+          // if(y >= 0 && x >= 0){
+          //   fr = Math.sqrt((y * y)+(x * x)) * -1;
+          //   rf = x;
+          //   //1
+          // }
+          // if(y >= 0 && x <= 0){
+          //   rf = Math.sqrt((y * y)+(x * x)) * -1;
+          //   fr = x;
+          //   //2
+          // }
+          // if(y <= 0 && x <= 0){
+          //   fr = Math.sqrt((y * y)+(x * x)) * 1;
+          //   rf = x;
+          //   //3
+          // }
+          // if(y <= 0 && x >= 0){
+          //   rf = Math.sqrt((y * y)+(x * x)) * 1;
+          //   fr = x;
+          //   //4
+          // }
+          if(y <= 0.1 && y >= -0.1 && x <= 0.1 && x >= -0.1){
             rf = 0;
             fr = 0;
           }
-        }          
-        
-
+                
         mFrontLeftTalon.set(m_driveControlMode, fr);
         mFrontRightTalon.set(m_driveControlMode, rf);
         mRearLeftTalon.set(m_driveControlMode, rf * .75);
         mRearRightTalon.set(m_driveControlMode, fr * .75);
     }
-
-
-  } 
       public void setMotorCoeff(
         double frontLeftCoeff,
         double rearLeftCoeff,
