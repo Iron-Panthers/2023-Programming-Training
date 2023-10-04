@@ -21,7 +21,7 @@ public class DriveSubsystem extends SubsystemBase {
     private double FrontRightWheel = 1;
     private double BackLeftWheel = 1;
     private double BackRightWheel = 1;
-    private double Slopepowersquared = 1;
+    private double Stickangle = 1;
     private double Slopepower = 1;
 
     private ControlMode m_driveControlMode = ControlMode.PercentOutput;
@@ -48,7 +48,28 @@ public class DriveSubsystem extends SubsystemBase {
         mRearRightTalon.set(m_driveControlMode, BackRightWheel);
 
         
-        Slopepowersquared = (x*x) + (y*y);
+        Stickangle = Math.toDegrees(Math.atan((y)/(x)));
+        Slopepower = Math.sqrt(x*x + y*y);
+        if (x>1){
+          x=1;
+        }
+        
+        if (x<-1){
+          x=-1;
+        }
+
+        if (y>1){
+          y=1;
+        }
+
+        if (y<-1){
+          y=-1;
+        }
+
+        FrontRightWheel = BackLeftWheel = Math.toDegrees (Math.asin(Stickangle-0.25*3.14) * Slopepower);
+        FrontLeftWheel = BackRightWheel = Math.toDegrees (Math.asin(Stickangle+0.25*3.14) * Slopepower);
+        
+
 
 
 
