@@ -84,13 +84,24 @@ public class DriveSubsystem extends SubsystemBase {
         mRearLeftTalon.set(m_driveControlMode, RearLeftWheel);
         mRearRightTalon.set(m_driveControlMode, RearRightWheel);
         
-    
-      if (Math.abs(y)>Math.abs(x)){ //forward or backward
+      if (x>0.5&&y>0.5){ //diagonal forward right
+        FrontLeftWheel = 1;
+        RearRightWheel = 0.6;
+      }else if (x<-0.5&&y>0.5){//diagonal forward left
+        FrontRightWheel = 1;
+        RearLeftWheel = 0.6;
+      }else if (x>0.5&&y<-0.5){//diagonal backward right
+        FrontRightWheel = -1;
+        RearLeftWheel = -0.6;
+      }else if (x<-0.5&&y<-0.5){//diagonal backward right
+        FrontLeftWheel = -1;
+        RearRightWheel = -0.6;
+      }else if (Math.abs(x)>Math.abs(y)){ //forward or backward
         FrontLeftWheel = y;
         FrontRightWheel = y;
         RearLeftWheel = y*0.6;
         RearRightWheel = y*0.6;
-      }else if (Math.abs(x)>Math.abs(y)){ //right
+      }else if (Math.abs(y)>Math.abs(x)){ //right
         FrontLeftWheel = x;
         FrontRightWheel = -x;
         RearLeftWheel = -x*0.6;
@@ -98,7 +109,7 @@ public class DriveSubsystem extends SubsystemBase {
       }
     }
 
-    
+
       public void setMotorCoeff(
         double frontLeftCoeff,
         double rearLeftCoeff,
