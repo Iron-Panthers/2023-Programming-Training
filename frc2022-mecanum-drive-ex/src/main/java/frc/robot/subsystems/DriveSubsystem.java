@@ -37,41 +37,30 @@ public class DriveSubsystem extends SubsystemBase {
     // Use the joystick X axis for lateral movement, Y axis for forward
     // movement, and Z axis for rotation.
         // mRobotDrive.driveCartesian(ySpeed, xSpeed, zRot, 0.0);
-        ySpeed.getAsDouble();
-        double fr = 0;
-        double rf = 0;
+       
         double x = xSpeed.getAsDouble();
         double y = ySpeed.getAsDouble();
-          if(y > 0 && x > 0){
-            fr = 1;
-            //1
-            if(y != .5){
-              rf = xSpeed.getAsDouble;
-            }
-          }else if(y > 0 && x < 0){
-            rf = 1;
-            //2
-            if(y != .5){
-              fr = xSpeed.getAsDouble;
-          } else if(y < 0 && x < 0){
-            fr = 1;
-            //3
-            if(y != -.5){
-              rf = xSpeed.getAsDouble;
-            }
-          }else if(y < 0 && x > 0){
-            rf = 1;
-            //4
-            if(y != -.5){
-              fr = xSpeed.getAsDouble;
-          }
-        }          
-        
 
-        mFrontLeftTalon.set(m_driveControlMode, fr);
-        mFrontRightTalon.set(m_driveControlMode, rf);
-        mRearLeftTalon.set(m_driveControlMode, fr * .75);
-        mRearRightTalon.set(m_driveControlMode, rf * .75);
+        
+        double frontLeftPower = 0;
+        double frontRightPower = 0;
+        double backLeftPower = 0;
+        double backRightPower = 0;
+
+        frontLeftPower = backRightPower;
+        frontRightPower = backLeftPower;
+
+        if(Math.abs(x) > Math.abs(y)) {
+          mFrontLeftTalon.set(m_driveControlMode, x);
+          mFrontRightTalon.set(m_driveControlMode, -x);
+          mRearLeftTalon.set(m_driveControlMode, -x);
+          mRearRightTalon.set(m_driveControlMode, x);
+        } else if(Math.abs(x) < Math.abs(y)) {
+          mFrontLeftTalon.set(m_driveControlMode, y);
+          mFrontRightTalon.set(m_driveControlMode, y);
+          mRearLeftTalon.set(m_driveControlMode, y);
+          mRearRightTalon.set(m_driveControlMode, y);
+        }
     }
 
 
