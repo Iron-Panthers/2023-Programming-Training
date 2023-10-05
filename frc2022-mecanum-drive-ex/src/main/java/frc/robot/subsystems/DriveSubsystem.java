@@ -64,6 +64,7 @@ public class DriveSubsystem extends SubsystemBase {
         double speedTH = 1-(Math.abs(0.5*(y+x)));
         double speedYG = Math.abs(0.5*(y + x)); // 0.5finding solution to split line equation x=y and joystick locaiton equation, y=-x+xSpeed+ySpeed
         double speedTurn = rX;
+        //Turning{
         double[][] talonSpeeds = new double[2][2];
 
         talonSpeeds[0][0]=speed1*multiTH*speedTH;
@@ -87,12 +88,16 @@ public class DriveSubsystem extends SubsystemBase {
             }
           }
         }
+      //}
 
-
-        mFrontLeftTalon.set(m_driveControlMode, talonSpeeds[0][0]);
-        mFrontRightTalon.set(m_driveControlMode,talonSpeeds[0][1]);
-        mRearLeftTalon.set(m_driveControlMode, talonSpeeds[1][0]);
-        mRearRightTalon.set(m_driveControlMode,talonSpeeds[1][1]);
+        // mFrontLeftTalon.set(m_driveControlMode, talonSpeeds[0][0]);
+        // mFrontRightTalon.set(m_driveControlMode,talonSpeeds[0][1]);
+        // mRearLeftTalon.set(m_driveControlMode, talonSpeeds[1][0]);
+        // mRearRightTalon.set(m_driveControlMode,talonSpeeds[1][1]);
+        mFrontLeftTalon.set(m_driveControlMode, rX);
+        mFrontRightTalon.set(m_driveControlMode,rX);
+        mRearLeftTalon.set(m_driveControlMode, rX);
+        mRearRightTalon.set(m_driveControlMode,rX);
     }//end of method
 
 
