@@ -86,16 +86,24 @@ public class DriveSubsystem extends SubsystemBase {
         
       if (x==1 && y==1){ //diagonal forward right
         FrontLeftWheel = 1;
+        FrontRightWheel = 0;
         RearRightWheel = 0.6;
+        RearLeftWheel = 0;
       }else if (x==-1 && y==1){ //diagonal forward left
         FrontRightWheel = 1;
         RearLeftWheel = 0.6;
+        RearRightWheel = 0;
+        FrontLeftWheel = 0;
       }else if (x==1 && y==-1){ //diagonal backward right
         FrontRightWheel = -1;
+        FrontLeftWheel = 0;
         RearLeftWheel = -0.6;
+        RearRightWheel = 0;
       }else if (x==-1 && y==-1){ //diagonal backward right
         FrontLeftWheel = -1;
+        FrontRightWheel = 0;
         RearRightWheel = -0.6;
+        RearLeftWheel = 0;
       }else if (x==0){ //forward or backward
         FrontLeftWheel = y;
         FrontRightWheel = y;
