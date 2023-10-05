@@ -37,25 +37,20 @@ public class DriveSubsystem extends SubsystemBase {
 
     double ySpeed = ySpeedSupplier.getAsDouble();
     double xSpeed = xSpeedSupplier.getAsDouble();
-        if (xSpeed >=0.5 || xSpeed <= -0.5){
-          mFrontLeftTalon.set(m_driveControlMode, ySpeed);
-          mFrontRightTalon.set(m_driveControlMode, ySpeed);
-          mRearLeftTalon.set(m_driveControlMode, ySpeed);
-          mRearRightTalon.set(m_driveControlMode, ySpeed);
-        }
-       
-         if (ySpeed >= 0.5){
+        if ((xSpeed >=0.5 || xSpeed <= -0.5)&&Math.abs(ySpeed)<Math.abs(xSpeed)){
           mFrontLeftTalon.set(m_driveControlMode, xSpeed);
-          mFrontRightTalon.set(m_driveControlMode, -xSpeed);
-          mRearLeftTalon.set(m_driveControlMode, -xSpeed);
-          mRearRightTalon.set(m_driveControlMode, xSpeed);
-         } else if (ySpeed <= -0.5){
-          mFrontLeftTalon.set(m_driveControlMode, -xSpeed);
           mFrontRightTalon.set(m_driveControlMode, xSpeed);
           mRearLeftTalon.set(m_driveControlMode, xSpeed);
-          mRearRightTalon.set(m_driveControlMode, -xSpeed);
+          mRearRightTalon.set(m_driveControlMode, xSpeed);
+        }
+       
+         if ((ySpeed >= 0.5 || ySpeed<=-0.5) &&Math.abs(ySpeed)>Math.abs(xSpeed)){
+          mFrontLeftTalon.set(m_driveControlMode, ySpeed);
+          mFrontRightTalon.set(m_driveControlMode, -ySpeed);
+          mRearLeftTalon.set(m_driveControlMode, -ySpeed);
+          mRearRightTalon.set(m_driveControlMode, ySpeed);
          }
-         if (xSpeed == 0 || ySpeed==0){
+         if (xSpeed == 0 && ySpeed==0){
           mFrontLeftTalon.set(m_driveControlMode, 0);
           mFrontRightTalon.set(m_driveControlMode, 0);
           mRearLeftTalon.set(m_driveControlMode, 0);
