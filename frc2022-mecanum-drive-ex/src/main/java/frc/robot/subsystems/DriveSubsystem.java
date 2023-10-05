@@ -32,16 +32,19 @@ public class DriveSubsystem extends SubsystemBase {
         this.mRearRightTalon = mRearRightTalon;
     }
 
-   public void drive(DoubleSupplier ySpeed, DoubleSupplier xSpeed)
+   public void drive(DoubleSupplier yLSpeed, DoubleSupplier xLSpeed, DoubleSupplier yRSpeed,DoubleSupplier xRSpeed)
    {
     // Use the joystick X axis for lateral movement, Y axis for forward
     // movement, and Z axis for rotation.
         // mRobotDrive.driveCartesian(ySpeed, xSpeed, zRot, 0.0); th right
         // Wheels represented by T Y
-        //                       G H
-        double y = ySpeed.getAsDouble();
-        double x = xSpeed.getAsDouble();
-        if (y>x)
+        //                     G H
+        double y = yLSpeed.getAsDouble();
+        double x = xLSpeed.getAsDouble();
+        //double rY = yRSpeed.getAsDouble();
+        double rX = xRSpeed.getAsDouble();
+        
+        if (y>x)// Straight
         {
           multiTH = -1;
         }
@@ -60,14 +63,37 @@ public class DriveSubsystem extends SubsystemBase {
         double speed1 = Math.abs((Math.sqrt((x*x)+(y*y)))); // 1 finding distance of joystick to center 
         double speedTH = 1-(Math.abs(0.5*(y+x)));
         double speedYG = Math.abs(0.5*(y + x)); // 0.5finding solution to split line equation x=y and joystick locaiton equation, y=-x+xSpeed+ySpeed
+        double speedTurn = rX;
+        double[][] talonSpeeds = new double[2][2];
+
+        talonSpeeds[0][0]=speed1*multiTH*speedTH;
+        talonSpeeds[0][1]=speed1*multiYG*speedYG;
+        talonSpeeds[1][0]=speed1*multiYG*0.7*speedYG;
+        talonSpeeds[1][1]=speed1*multiTH*0.7*speedTH;
+
+        for (int i=0;i>talonSpeeds.length;i++)
+        {
+          int i1=i-1;
+          for (int j1=2;j1>talonSpeeds.length;j1--)
+          {
+            
+            if (speedTurn*(j1+j1-1)*talonSpeeds[i1][j1]<0)//times -1 if TY, if wheel speed and turn are the same direction
+            { 
+              talonSpeeds[i1][j1]*=speedTurn;
+            }
+            else // wheel speed and turn diff direction 
+            {
+              talonSpeeds[i1][j1]*=1-speedTurn; 
+            }
+          }
+        }
 
 
-
-        mFrontLeftTalon.set(m_driveControlMode, speed1*multiTH*speedTH);
-        mFrontRightTalon.set(m_driveControlMode,speed1*multiYG*speedYG);
-        mRearLeftTalon.set(m_driveControlMode, speed1*multiYG*0.75*speedYG);
-        mRearRightTalon.set(m_driveControlMode,speed1*multiTH*0.75*speedTH);
-    }
+        mFrontLeftTalon.set(m_driveControlMode, talonSpeeds[0][0]);
+        mFrontRightTalon.set(m_driveControlMode,talonSpeeds[0][1]);
+        mRearLeftTalon.set(m_driveControlMode, talonSpeeds[1][0]);
+        mRearRightTalon.set(m_driveControlMode,talonSpeeds[1][1]);
+    }//end of method
 
 
     
