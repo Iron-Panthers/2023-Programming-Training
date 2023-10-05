@@ -32,7 +32,7 @@ public class DriveSubsystem extends SubsystemBase {
         this.mRearRightTalon = mRearRightTalon;
     }
 
-   public void drive(DoubleSupplier yLSpeed, DoubleSupplier xLSpeed, DoubleSupplier yRSpeed,DoubleSupplier xRSpeed)
+   public void drive(DoubleSupplier yLSpeed, DoubleSupplier xLSpeed, DoubleSupplier xRSpeed)
    {
     // Use the joystick X axis for lateral movement, Y axis for forward
     // movement, and Z axis for rotation.
