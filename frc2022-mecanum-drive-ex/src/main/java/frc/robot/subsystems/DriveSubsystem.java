@@ -24,7 +24,6 @@ public class DriveSubsystem extends SubsystemBase {
     private double RearLeftWheel = 1;
     private double FrontRightWheel = 1;
     private double RearRightWheel = 1;
-    private double slopeInt = 1;
     
   
 
@@ -51,22 +50,27 @@ public class DriveSubsystem extends SubsystemBase {
         mFrontRightTalon.set(m_driveControlMode, FrontRightWheel);
         mRearLeftTalon.set(m_driveControlMode, RearLeftWheel);
         mRearRightTalon.set(m_driveControlMode, RearRightWheel);
-        if(Math.abs(y)>Math.abs(x)){
-          FrontLeftWheel = y;
-          FrontRightWheel = y;
-          RearLeftWheel = y*0.65;
-          RearRightWheel = y*0.65;
-          //Foward & Backward
+      //   if(Math.abs(y)>Math.abs(x)){
+      //     FrontLeftWheel = y;
+      //     FrontRightWheel = y;
+      //     RearLeftWheel = y*0.65;
+      //     RearRightWheel = y*0.65;
+      //     //Foward & Backward
 
-        }
-       else if (Math.abs(x)>Math.abs(y)){
-          FrontLeftWheel = -x;
-          FrontRightWheel = x;
-          RearLeftWheel = x*0.65;
-          RearRightWheel = -x*0.65;
-          //Left
-        }
-        
+      //   }
+      //  else if (Math.abs(x)>Math.abs(y)){
+      //     FrontLeftWheel = -x;
+      //     FrontRightWheel = x;
+      //     RearLeftWheel = x*0.65;
+      //     RearRightWheel = -x*0.65;
+      //     //Left
+      //   }
+        FrontLeftWheel = Math.sqrt((x*x) + (y*y));
+        FrontRightWheel = Math.sqrt((x*x) + (y*y));
+        RearLeftWheel = Math.sqrt((x*x) + (y*y))*0.65;
+        RearRightWheel = Math.sqrt((x*x) + (y*y))*0.65;
+
+      
 
     }
 // public void SpinOff(DoubleSupplier ySpeed, DoubleSupplier xSpeed){
