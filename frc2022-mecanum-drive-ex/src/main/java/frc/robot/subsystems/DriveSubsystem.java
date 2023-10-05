@@ -83,38 +83,73 @@ public class DriveSubsystem extends SubsystemBase {
         mFrontRightTalon.set(m_driveControlMode, FrontRightWheel);
         mRearLeftTalon.set(m_driveControlMode, RearLeftWheel);
         mRearRightTalon.set(m_driveControlMode, RearRightWheel);
+
+
         
-      if (x==1 && y==1){ //diagonal forward right
-        FrontLeftWheel = 1;
+      // if (x<=1 && y<=1){ //diagonal forward right
+      //   FrontLeftWheel = 1;
+      //   FrontRightWheel = 0;
+      //   RearRightWheel = 0.6;
+      //   RearLeftWheel = 0;
+      // }else if (x<=-1 && y<=1){ //diagonal forward left
+      //   FrontRightWheel = 1;
+      //   RearLeftWheel = 0.6;
+      //   RearRightWheel = 0;
+      //   FrontLeftWheel = 0;
+      // }else if (x<=1 && y>=-1){ //diagonal backward right
+      //   FrontRightWheel = -1;
+      //   FrontLeftWheel = 0;
+      //   RearLeftWheel = -0.6;
+      //   RearRightWheel = 0;
+      // }else if (x>=-1 && y>=-1){ //diagonal backward right
+      //   FrontLeftWheel = -1;
+      //   FrontRightWheel = 0;
+      //   RearRightWheel = -0.6;
+      //   RearLeftWheel = 0;
+      // }else if (x==0){ //forward or backward
+      //   FrontLeftWheel = y;
+      //   FrontRightWheel = y;
+      //   RearLeftWheel = y*0.6;
+      //   RearRightWheel = y*0.6;
+      // }else if (y==0){ //right
+      //   FrontLeftWheel = x;
+      //   FrontRightWheel = -x;
+      //   RearLeftWheel = -x*0.6;
+      //   RearRightWheel = x*0.6;
+      // }
+
+      if (x>0.5&&y>0.5){ //diagonal forward right
+        FrontLeftWheel = y;
         FrontRightWheel = 0;
-        RearRightWheel = 0.6;
+        RearRightWheel = x*0.6;
         RearLeftWheel = 0;
-      }else if (x==-1 && y==1){ //diagonal forward left
-        FrontRightWheel = 1;
-        RearLeftWheel = 0.6;
+      }else if (x<-0.5&&y>0.5){//diagonal forward left
+        FrontRightWheel = y;
+        RearLeftWheel = x*0.6;
         RearRightWheel = 0;
         FrontLeftWheel = 0;
-      }else if (x==1 && y==-1){ //diagonal backward right
-        FrontRightWheel = -1;
+      }else if (x>0.5&&y<-0.5){//diagonal backward right
+        FrontRightWheel = -x;
         FrontLeftWheel = 0;
-        RearLeftWheel = -0.6;
+        RearLeftWheel = y*0.6; //y would be negative
         RearRightWheel = 0;
-      }else if (x==-1 && y==-1){ //diagonal backward right
-        FrontLeftWheel = -1;
+      }else if (x<-0.5&&y<-0.5){//diagonal backward left
+        FrontLeftWheel = -x;
         FrontRightWheel = 0;
-        RearRightWheel = -0.6;
+        RearRightWheel = y*0.6;
         RearLeftWheel = 0;
-      }else if (x==0){ //forward or backward
+      }else if (Math.abs(x)>Math.abs(y)){ //forward or backward
         FrontLeftWheel = y;
         FrontRightWheel = y;
         RearLeftWheel = y*0.6;
         RearRightWheel = y*0.6;
-      }else if (y==0){ //right
+      }else if (Math.abs(y)>Math.abs(x)){ //right
         FrontLeftWheel = x;
         FrontRightWheel = -x;
         RearLeftWheel = -x*0.6;
         RearRightWheel = x*0.6;
       }
+      
     }
 
 
