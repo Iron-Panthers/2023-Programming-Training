@@ -63,7 +63,7 @@ public class DriveSubsystem extends SubsystemBase {
         double speed1 = Math.abs((Math.sqrt((x*x)+(y*y)))); // 1 finding distance of joystick to center 
         double speedTH = 1-(Math.abs(0.5*(y+x)));
         double speedYG = Math.abs(0.5*(y + x)); // 0.5finding solution to split line equation x=y and joystick locaiton equation, y=-x+xSpeed+ySpeed
-        double speedTurn = rX;
+
         //Turning{
         double[][] talonSpeeds = new double[2][2];
 
@@ -78,26 +78,23 @@ public class DriveSubsystem extends SubsystemBase {
           for (int j1=2;j1>talonSpeeds.length;j1--)
           {
             
-            if (speedTurn*(j1+j1-1)*talonSpeeds[i1][j1]<0)//times -1 if TY, if wheel speed and turn are the same direction
+            if (rX*(j1+j1-1)*talonSpeeds[i1][j1]<0)//times -1 if TY, if wheel speed and turn are the same direction
             { 
-              talonSpeeds[i1][j1]*=speedTurn;
+              talonSpeeds[i1][j1]=rX*talonSpeeds[i1][j1];
             }
             else // wheel speed and turn diff direction 
             {
-              talonSpeeds[i1][j1]*=1-speedTurn; 
+              talonSpeeds[i1][j1]=(1-rX)*talonSpeeds[i1][j1]; 
             }
           }
         }
       //}
 
-        // mFrontLeftTalon.set(m_driveControlMode, talonSpeeds[0][0]);
-        // mFrontRightTalon.set(m_driveControlMode,talonSpeeds[0][1]);
-        // mRearLeftTalon.set(m_driveControlMode, talonSpeeds[1][0]);
-        // mRearRightTalon.set(m_driveControlMode,talonSpeeds[1][1]);
-        mFrontLeftTalon.set(m_driveControlMode, rX);
-        mFrontRightTalon.set(m_driveControlMode,rX);
-        mRearLeftTalon.set(m_driveControlMode, rX);
-        mRearRightTalon.set(m_driveControlMode,rX);
+        mFrontLeftTalon.set(m_driveControlMode, talonSpeeds[0][0]);
+        mFrontRightTalon.set(m_driveControlMode,talonSpeeds[0][1]);
+        mRearLeftTalon.set(m_driveControlMode, talonSpeeds[1][0]);
+        mRearRightTalon.set(m_driveControlMode,talonSpeeds[1][1]);
+
     }//end of method
 
 
