@@ -48,18 +48,30 @@ public class DriveSubsystem extends SubsystemBase {
         if(y >= 0 && x >= 0){
           //1
           rf += y;
+          fr = Math.sqrt((x * x)+(y * y));
         }
         if(y >= 0 && x <= 0){
           //2
           fr += y;
+          rf = Math.sqrt((x * x)+(y * y));
         }
         if(y <= 0 && x <= 0){
           //3
-          rf += y * -1;
+          rf += y;
+          fr = Math.sqrt((x * x)+(y * y)) * -1;
         }
         if(y <= 0 && x >= 0){
           //4
-          fr += y * -1;
+          fr += y;
+          rf = Math.sqrt((x * x)+(y * y)) * -1;
+        }
+        if(y == 0){
+          fr = y;
+          rf = y;
+        }
+        if(x == 0){
+          fr = x;
+          rf = x * -1;
         }
           // if(y >= 0 && x >= 0){
           //   fr = Math.sqrt((y * y)+(x * x)) * -1;
