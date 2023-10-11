@@ -34,7 +34,7 @@ public class DriveSubsystem extends SubsystemBase {
     // movement, and Z axis for rotation.
         // mRobotDrive.driveCartesian(ySpeed, xSpeed, zRot, 0.0);
         double x = xSpeed.getAsDouble();
-        double y = ySpeed.getAsDouble();
+        double y = ySpeed.getAsDouble() * -1;
         double flRr = (x + y) / (Math.sqrt(2));
         double frRl = (x * -1 + y) / (Math.sqrt(2));
         //using the distance from a point and a line formula( d = ∣ a x  + b y  + c∣ / sqrt(a2 + b2) ), we can make
