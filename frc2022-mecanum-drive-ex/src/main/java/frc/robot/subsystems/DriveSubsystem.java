@@ -21,8 +21,10 @@ public class DriveSubsystem extends SubsystemBase {
     private double FrontRightWheel = 1;
     private double BackLeftWheel = 1;
     private double BackRightWheel = 1;
-    private double Stickangle = 1;
-    private double Slopepower = 1;
+    private double mag = 1;
+    private double ypower = 1;
+    private double xpower = 1;
+    private double angle = 1;
 
     private ControlMode m_driveControlMode = ControlMode.PercentOutput;
 
@@ -48,8 +50,31 @@ public class DriveSubsystem extends SubsystemBase {
         mRearRightTalon.set(m_driveControlMode, BackRightWheel);
 
         
-        Stickangle = Math.toDegrees(Math.atan((y)/(x)));
-        Slopepower = Math.sqrt(x*x + y*y);
+        mag = Math.sqrt(x*x + y*y);
+        angle = Math.atan(y/x);
+        ypower = Math.sin(angle-45)*mag;
+        xpower = Math.cos(angle-45)*mag;
+        xpower = FrontRightWheel = BackLeftWheel;
+        ypower = FrontLeftWheel = BackRightWheel;
+
+
+
+        
+       
+        // find (x,y) and distance from (0,0)
+        //then put power into wheels
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         if (x>1){
           x=1;
         }
@@ -66,33 +91,23 @@ public class DriveSubsystem extends SubsystemBase {
           y=-1;
         }
 
-        FrontRightWheel = BackLeftWheel = Math.toDegrees (Math.asin(Stickangle-0.25*3.14) * Slopepower);
-        FrontLeftWheel = BackRightWheel = Math.toDegrees (Math.asin(Stickangle+0.25*3.14) * Slopepower);
         
+        if (Math.abs(y)>Math.abs(x)) {
+          FrontLeftWheel = y;
+          FrontRightWheel = y;
+          BackLeftWheel = 0.65*y;
+          BackRightWheel = 0.65*y;
+        }
 
-
-
-
-
-
-        //y-0/x-0=slope=power in what direction??
-
-        // if (Math.abs(y)>Math.abs(x)) {
-        //   FrontLeftWheel = y;
-        //   FrontRightWheel = y;
-        //   BackLeftWheel = 0.65*y;
-        //   BackRightWheel = 0.65*y;
-        // }
-
-        //   //go forward or backward
+          //go forward or backward
       
-        // else if  (Math.abs(x)>Math.abs(y)){//go right
-        //   FrontLeftWheel = x;
-        //   FrontRightWheel =-x;
-        //   BackLeftWheel = 0.65*-x;
-        //   BackRightWheel = 0.65*x;
+        else if  (Math.abs(x)>Math.abs(y)){//go right
+          FrontLeftWheel = x;
+          FrontRightWheel =-x;
+          BackLeftWheel = 0.65*-x;
+          BackRightWheel = 0.65*x;
 
-        // }
+        }
         
         
 
