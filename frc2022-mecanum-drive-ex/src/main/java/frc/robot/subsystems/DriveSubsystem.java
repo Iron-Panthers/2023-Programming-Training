@@ -67,8 +67,8 @@ public class DriveSubsystem extends SubsystemBase {
         //Turning{
         
 
-        double frontLeftTalon=speed1*multiTH*speedTH*rX/2*-1;
-        double frontRightTalon=speed1*multiYG*speedYG*rX/2;
+        double frontLeftTalon=speed1*multiTH*speedTH*rX/2;
+        double frontRightTalon=speed1*multiYG*speedYG*rX/2*-1;
         double backLeftTalon=speed1*multiTH*speedTH*rX/2*-1;
         double backRightTalon=speed1*multiYG*speedYG*rX/2;
         
