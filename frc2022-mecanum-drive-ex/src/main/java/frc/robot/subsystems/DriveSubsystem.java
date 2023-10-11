@@ -66,8 +66,10 @@ public class DriveSubsystem extends SubsystemBase {
         angle = Math.atan(y/x);
         ypower = Math.sin(angle-45)*mag;
         xpower = Math.cos(angle-45)*mag;
-        FrontRightWheel = BackLeftWheel = xpower;
-        FrontLeftWheel = BackRightWheel = ypower;
+        FrontRightWheel = xpower;
+        BackLeftWheel = xpower;
+        FrontLeftWheel = ypower;
+        BackRightWheel = ypower;
 
         mFrontLeftTalon.set(m_driveControlMode, FrontLeftWheel);
         mFrontRightTalon.set(m_driveControlMode, FrontRightWheel);
