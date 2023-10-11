@@ -44,10 +44,7 @@ public class DriveSubsystem extends SubsystemBase {
         double y = ySpeed.getAsDouble();
         double x = xSpeed.getAsDouble();
 
-        mFrontLeftTalon.set(m_driveControlMode, FrontLeftWheel);
-        mFrontRightTalon.set(m_driveControlMode, FrontRightWheel);
-        mRearLeftTalon.set(m_driveControlMode, BackLeftWheel);
-        mRearRightTalon.set(m_driveControlMode, BackRightWheel);
+
 
         if (x>1){
           x=1;
@@ -69,8 +66,13 @@ public class DriveSubsystem extends SubsystemBase {
         angle = Math.atan(y/x);
         ypower = Math.sin(angle-45)*mag;
         xpower = Math.cos(angle-45)*mag;
-        xpower = FrontRightWheel = BackLeftWheel;
-        ypower = FrontLeftWheel = BackRightWheel;
+        FrontRightWheel = BackLeftWheel = xpower;
+        FrontLeftWheel = BackRightWheel = ypower;
+
+        mFrontLeftTalon.set(m_driveControlMode, FrontLeftWheel);
+        mFrontRightTalon.set(m_driveControlMode, FrontRightWheel);
+        mRearLeftTalon.set(m_driveControlMode, BackLeftWheel);
+        mRearRightTalon.set(m_driveControlMode, BackRightWheel);
 
   }  
       public void setMotorCoeff(
