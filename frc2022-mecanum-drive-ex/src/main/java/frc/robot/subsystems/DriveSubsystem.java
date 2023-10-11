@@ -89,6 +89,10 @@ public class DriveSubsystem extends SubsystemBase {
           }
         }
       //}
+      //double mag = squrt(x*x+y*y)
+      //double ang = tan^-1(y/x)
+      //sin(ang-45)mag=ypower
+      //cos(ang-45)mag=xpower
 
         mFrontLeftTalon.set(m_driveControlMode, talonSpeeds[0][0]);
         mFrontRightTalon.set(m_driveControlMode,talonSpeeds[0][1]);
