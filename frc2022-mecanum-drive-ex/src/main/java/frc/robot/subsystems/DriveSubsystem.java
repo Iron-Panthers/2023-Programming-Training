@@ -49,32 +49,6 @@ public class DriveSubsystem extends SubsystemBase {
         mRearLeftTalon.set(m_driveControlMode, BackLeftWheel);
         mRearRightTalon.set(m_driveControlMode, BackRightWheel);
 
-        
-        mag = Math.sqrt(x*x + y*y);
-        angle = Math.atan(y/x);
-        ypower = Math.sin(angle-45)*mag;
-        xpower = Math.cos(angle-45)*mag;
-        xpower = FrontRightWheel = BackLeftWheel;
-        ypower = FrontLeftWheel = BackRightWheel;
-
-
-
-        
-       
-        // find (x,y) and distance from (0,0)
-        //then put power into wheels
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         if (x>1){
           x=1;
         }
@@ -90,32 +64,13 @@ public class DriveSubsystem extends SubsystemBase {
         if (y<-1){
           y=-1;
         }
-
         
-        if (Math.abs(y)>Math.abs(x)) {
-          FrontLeftWheel = y;
-          FrontRightWheel = y;
-          BackLeftWheel = 0.65*y;
-          BackRightWheel = 0.65*y;
-        }
-
-          //go forward or backward
-      
-        else if  (Math.abs(x)>Math.abs(y)){//go right
-          FrontLeftWheel = x;
-          FrontRightWheel =-x;
-          BackLeftWheel = 0.65*-x;
-          BackRightWheel = 0.65*x;
-
-        }
-        
-        
-
-
-
-
-
-
+        mag = Math.sqrt(x*x + y*y);
+        angle = Math.atan(y/x);
+        ypower = Math.sin(angle-45)*mag;
+        xpower = Math.cos(angle-45)*mag;
+        xpower = FrontRightWheel = BackLeftWheel;
+        ypower = FrontLeftWheel = BackRightWheel;
 
   }  
       public void setMotorCoeff(
