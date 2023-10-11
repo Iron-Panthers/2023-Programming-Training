@@ -72,11 +72,12 @@ public class DriveSubsystem extends SubsystemBase {
         talonSpeeds[1][0]=speed1*multiYG*0.7*speedYG;
         talonSpeeds[1][1]=speed1*multiTH*0.7*speedTH;
 
-        for (int i=0;i>talonSpeeds.length;i++)
+        for (int i=0;i<talonSpeeds.length;i++)
         {
-          int i1=i-1;
-          for (int j1=2;j1>talonSpeeds.length;j1--)
+          double i1 = i-1;
+          for (int j=0;j<talonSpeeds.length;j++)
           {
+            double j1 = j-1;
             talonSpeeds[i1][j1]=(rX+talonSpeeds[i1][j1])/2;
             // if (rX*(j1+j1-1)*talonSpeeds[i1][j1]<0)//times -1 if TY, if wheel speed and turn are the same direction
             // { 
