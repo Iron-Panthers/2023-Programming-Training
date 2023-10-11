@@ -65,40 +65,31 @@ public class DriveSubsystem extends SubsystemBase {
         double speedYG = Math.abs(0.5*(y + x)); // 0.5finding solution to split line equation x=y and joystick locaiton equation, y=-x+xSpeed+ySpeed
 
         //Turning{
-        double[][] talonSpeeds = new double[2][2];
+        
 
-        talonSpeeds[0][0]=speed1*multiTH*speedTH;
-        talonSpeeds[0][1]=speed1*multiYG*speedYG;
-        talonSpeeds[1][0]=speed1*multiYG*0.7*speedYG;
-        talonSpeeds[1][1]=speed1*multiTH*0.7*speedTH;
+        double frontLeftTalon=speed1*multiTH*speedTH*rX/2*-1;
+        double frontRightTalon=speed1*multiYG*speedYG*rX/2;
+        double backLeftTalon=speed1*multiTH*speedTH*rX/2*-1;
+        double backRightTalon=speed1*multiYG*speedYG*rX/2;
+        
+        // talonSpeeds[0][1]=speed1*multiYG*speedYG;
+        // talonSpeeds[1][0]=speed1*multiYG*0.7*speedYG;
+        // talonSpeeds[1][1]=speed1*multiTH*0.7*speedTH;
 
-        for (int i=0;i<talonSpeeds.length;i++)
-        {
-          double i1 = i-1;
-          for (int j=0;j<talonSpeeds.length;j++)
-          {
-            double j1 = j-1;
-            talonSpeeds[i1][j1]=(rX+talonSpeeds[i1][j1])/2;
-            // if (rX*(j1+j1-1)*talonSpeeds[i1][j1]<0)//times -1 if TY, if wheel speed and turn are the same direction
-            // { 
-            //   talonSpeeds[i1][j1]=(1-rX)*talonSpeeds[i1][j1];
-            // }
-            // else // wheel speed and turn diff direction 
-            //   {
-            //   talonSpeeds[i1][j1]=rX*talonSpeeds[i1][j1]; 
-            // }
-          }
-        }
+        // talonSpeeds[0][0]=(rX+talonSpeeds[0][0])/2;
+        // talonSpeeds[1][0]=(rX+talonSpeeds[0][0])/2;
+        // talonSpeeds[0][1]=(rX+talonSpeeds[0][0])/2;
+        // talonSpeeds[1][1]=(rX+talonSpeeds[0][0])/2;
       //}
       //double mag = squrt(x*x+y*y)
       //double ang = tan^-1(y/x)
       //sin(ang-45)mag=ypower
       //cos(ang-45)mag=xpower
 
-        mFrontLeftTalon.set(m_driveControlMode, talonSpeeds[0][0]);
-        mFrontRightTalon.set(m_driveControlMode,talonSpeeds[0][1]);
-        mRearLeftTalon.set(m_driveControlMode, talonSpeeds[1][0]);
-        mRearRightTalon.set(m_driveControlMode,talonSpeeds[1][1]);
+        mFrontLeftTalon.set(m_driveControlMode, frontLeftTalon);
+        mFrontRightTalon.set(m_driveControlMode,frontRightTalon);
+        mRearLeftTalon.set(m_driveControlMode,backLeftTalon );
+        mRearRightTalon.set(m_driveControlMode,backRightTalon);
 
     }//end of method
 
