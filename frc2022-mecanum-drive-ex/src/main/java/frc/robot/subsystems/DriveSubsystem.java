@@ -1,14 +1,10 @@
 package frc.robot.subsystems;
 import java.util.function.DoubleSupplier;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.Drive;
-
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -37,72 +33,23 @@ public class DriveSubsystem extends SubsystemBase {
     // Use the joystick X axis for lateral movement, Y axis for forward
     // movement, and Z axis for rotation.
         // mRobotDrive.driveCartesian(ySpeed, xSpeed, zRot, 0.0);
-        ySpeed.getAsDouble();
-        double fr = 0;
-        double rf = 0;
         double x = xSpeed.getAsDouble();
         double y = ySpeed.getAsDouble();
-        fr = x;
-        rf = fr * -1;
-        
-        if(y >= 0 && x >= 0){
-          //1
-          rf += y;
-          fr = Math.sqrt((x * x)+(y * y));
-        }
-        if(y >= 0 && x <= 0){
-          //2
-          fr += y;
-          rf = Math.sqrt((x * x)+(y * y));
-        }
-        if(y <= 0 && x <= 0){
-          //3
-          rf += y;
-          fr = Math.sqrt((x * x)+(y * y)) * -1;
-        }
-        if(y <= 0 && x >= 0){
-          //4
-          fr += y;
-          rf = Math.sqrt((x * x)+(y * y)) * -1;
-        }
-        if(y == 0){
-          fr = y;
-          rf = y;
-        }
-        if(x == 0){
-          fr = x;
-          rf = x * -1;
-        }
-          // if(y >= 0 && x >= 0){
-          //   fr = Math.sqrt((y * y)+(x * x)) * -1;
-          //   rf = x;
-          //   //1
-          // }
-          // if(y >= 0 && x <= 0){
-          //   rf = Math.sqrt((y * y)+(x * x)) * -1;
-          //   fr = x;
-          //   //2
-          // }
-          // if(y <= 0 && x <= 0){
-          //   fr = Math.sqrt((y * y)+(x * x)) * 1;
-          //   rf = x;
-          //   //3
-          // }
-          // if(y <= 0 && x >= 0){
-          //   rf = Math.sqrt((y * y)+(x * x)) * 1;
-          //   fr = x;
-          //   //4
-          // }
-          if(y <= 0.1 && y >= -0.1 && x <= 0.1 && x >= -0.1){
-            rf = 0;
-            fr = 0;
-          }
-                
-        mFrontLeftTalon.set(m_driveControlMode, fr);
-        mFrontRightTalon.set(m_driveControlMode, rf);
-        mRearLeftTalon.set(m_driveControlMode, rf * .75);
-        mRearRightTalon.set(m_driveControlMode, fr * .75);
-    }
+        double flRr = (x + y) / (Math.sqrt(2));
+        double frRl = (x * -1 + y) / (Math.sqrt(2));
+        //using the distance from a point and a line formula( d = ∣ a x  + b y  + c∣ / sqrt(a2 + b2) ), we can make
+        // two new axises, which we are going to call xAxis2 and yAxis2. These axises are rotated 45 degrees. Knowing that, we*
+        // can draw two lines for our new axises; the slope of xAxis2 is x+y=0, and the slope of yAxis2 is -x+y=0. With these lines,
+        // we can implement it into the distance of a point and a line formula; xAxis2: |x+y|/sqrt(a2 + b2) because ax + by + c represents 
+        // the slope of the line. From this, we can conclude that a = 1 and b = 1 and c = 0, so implementing that into our equation, we get
+        // |x+y|/sqrt(1^2 + 1^2), simplifying, we get |x+y|/sqrt(2). Doing the same thing for the yAxis2, we get |-x+y|/sqrt(2). 
+        // Now, because we need to find the negative distance too(because we are making a new graph), we delete the absolute value, gettng us
+        // xAxis2: |x+y|/sqrt(2). Doing the same thing for the yAxis2, we get |-x+y|/sqrt(2). This is how I got my equation.
+        mFrontLeftTalon.set(m_driveControlMode, flRr);
+        mFrontRightTalon.set(m_driveControlMode, frRl);
+        mRearLeftTalon.set(m_driveControlMode, frRl * 0.75);
+        mRearLeftTalon.set(m_driveControlMode, flRr * 0.75);
+   }
       public void setMotorCoeff(
         double frontLeftCoeff,
         double rearLeftCoeff,
@@ -112,7 +59,7 @@ public class DriveSubsystem extends SubsystemBase {
       m_rearLeftCoeff = rearLeftCoeff;
       m_frontRightCoeff = frontRightCoeff;
       m_rearRightCoeff = rearRightCoeff;
-    }
+        }
 
       /**
    * Set control mode and velocity scale (opt)
