@@ -35,6 +35,10 @@ public class DriveSubsystem extends SubsystemBase {
         this.mRearRightTalon = mRearRightTalon;
     }
 
+    public void poo(){
+      System.out.println(ypower);
+    }
+
    public void drive(DoubleSupplier ySpeed, DoubleSupplier xSpeed)
    {
     // Use the joystick X axis for lateral movement, Y axis for forward
@@ -43,8 +47,7 @@ public class DriveSubsystem extends SubsystemBase {
 
         double y = ySpeed.getAsDouble();
         double x = xSpeed.getAsDouble();
-
-
+      
 
         if (x>1){
           x=1;
@@ -66,10 +69,10 @@ public class DriveSubsystem extends SubsystemBase {
         angle = Math.atan(y/x);
         ypower = Math.sin(angle-45)*mag;
         xpower = Math.cos(angle-45)*mag;
-        FrontRightWheel = xpower;
-        BackLeftWheel = xpower;
-        FrontLeftWheel = ypower;
-        BackRightWheel = ypower;
+        FrontRightWheel = xpower - turn;
+        BackLeftWheel = xpower - turn;
+        FrontLeftWheel = ypower + turn;
+        BackRightWheel = ypower + turn;
 
         mFrontLeftTalon.set(m_driveControlMode, FrontLeftWheel);
         mFrontRightTalon.set(m_driveControlMode, FrontRightWheel);

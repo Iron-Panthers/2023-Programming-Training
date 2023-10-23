@@ -14,11 +14,15 @@ public class DefaultDrive extends CommandBase {
     // Drivebase subsystem
     private DriveSubsystem mDrive;
 
-    public DefaultDrive (DoubleSupplier xSupplier, DoubleSupplier ySupplier, DriveSubsystem mDrive) {
+    public DefaultDrive (DoubleSupplier xSupplier, DoubleSupplier ySupplier, DoubleSupplier leftTurnSupplier, DoubleSupplier rightTurnSupplier, DriveSubsystem mDrive) {
         this.xSupplier = xSupplier;
         this.ySupplier = ySupplier;
         this.mDrive = mDrive;
         addRequirements(mDrive);
+    }
+
+    public DefaultDrive(DoubleSupplier meow){
+      this.xSupplier = meow;
     }
 
 
@@ -30,16 +34,18 @@ public class DefaultDrive extends CommandBase {
   
     @Override
     public void execute() {
+ 
+      double ySpeed = ySupplier.getAsDouble();
 
-      mDrive.drive (ySupplier, xSupplier);
-      
+
+
         // get values from suppliers
         // double y = ySupplier.getAsDouble();
         // double x = xSupplier.getAsDouble();
 
         // Use your drive method
 
-        mDrive.drive(ySupplier, xSupplier);
+        mDrive.drive(ySpeed, xSupplier, turnSupplier);
        
 
     }
